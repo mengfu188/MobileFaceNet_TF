@@ -49,11 +49,11 @@ def _main(args):
     imgrec = recordio.MXIndexedRecordIO(path_imgidx, path_imgrec, 'r')
 
     # 创建线程池
-    executor = ThreadPoolExecutor(max_workers=args.max_workers)
+    # executor = ThreadPoolExecutor(max_workers=args.max_workers)
 
     for i in tqdm(range(count)):
-        executor.submit(extrat_image(recordio, imgrec, output_dir, i))
-
+        # executor.submit(extrat_image(recordio, imgrec, output_dir, i))
+        extrat_image(recordio, imgrec, output_dir, i)
 
 def get_parser():
     parser = argparse.ArgumentParser(description='recovery mxnet rec file to image')
