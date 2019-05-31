@@ -28,7 +28,7 @@ def get_parser():
     parser = argparse.ArgumentParser(description='parameters to train net')
     parser.add_argument('--max_epoch', default=12, help='epoch to train the network')
     parser.add_argument('--image_size', default=[112, 112], help='the image size')
-    parser.add_argument('--class_number', required=True,
+    parser.add_argument('--class_number', required=True, type=int,
                         help='class number depend on your training datasets, MS1M-V1: 85164, MS1M-V2: 85742')
     parser.add_argument('--embedding_size', type=int,
                         help='Dimensionality of the embedding.', default=128)
