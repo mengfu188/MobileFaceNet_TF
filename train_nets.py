@@ -188,6 +188,10 @@ if __name__ == '__main__':
         sess.run(tf.global_variables_initializer())
         sess.run(tf.local_variables_initializer())
 
+        saver.save(sess, 'tmp/Model.ckpt')
+
+
+
         # load pretrained model
         if pretrained_model:
             print('Restoring pretrained model: %s' % pretrained_model)
