@@ -10,11 +10,6 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from utils.data_process import load_data
-from verification import evaluate
-from scipy.optimize import brentq
-from scipy import interpolate
-from sklearn import metrics
 import tensorflow as tf
 import numpy as np
 import argparse
@@ -23,6 +18,7 @@ import sys
 import re
 import os
 from PIL import Image
+from pathlib import Path
 
 
 def load_model(model):
@@ -85,14 +81,9 @@ def main():
             # image_size = images_placeholder.get_shape()[1]  # For some reason this doesn't work for frozen graphs
             embedding_size = embeddings.get_shape()[1]
 
-            image_files = [
-                'datasets/align_webface_112x112/0.0/Figure_0.png',
-                'datasets/align_webface_112x112/0.0/Figure_1.png',
-                'datasets/align_webface_112x112/0.0/Figure_2.png',
-                'datasets/align_webface_112x112/2.0/Figure_287.png',
-                'datasets/align_webface_112x112/2.0/Figure_289.png',
-                'datasets/align_webface_112x112/2.0/Figure_290.png',
-            ]
+            base_dir = Path('~/datasets/my_align_112').expanduser()
+
+            image_files = list(base_dir.glob('*/*'))
 
             nrof_images = len(image_files)
 
