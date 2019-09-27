@@ -1,0 +1,26 @@
+[{'name': 'img_inputs', 'index': 369, 'shape': array([  1, 112, 112,   3], dtype=int32), 'dtype': <class 'numpy.float32'>, 'quantization': (0.0, 0)}]
+[{'name': 'embeddings', 'index': 368, 'shape': array([  1, 192], dtype=int32), 'dtype': <class 'numpy.float32'>, 'quantization': (0.0, 0)}]
+begin db lfw convert.
+loading bin 1000
+loading bin 2000
+loading bin 3000
+loading bin 4000
+loading bin 5000
+loading bin 6000
+loading bin 7000
+loading bin 8000
+loading bin 9000
+loading bin 10000
+loading bin 11000
+  0%|          | 0/12000 [00:00<?, ?it/s]loading bin 12000
+(12000, 112, 112, 3)
+
+Runnning forward pass on lfw images
+100%|██████████| 12000/12000 [17:18<00:00, 11.56it/s]
+thresholds max: 0.01 <=> min: 0.01
+total time 1040.858s to evaluate 12000 images of lfw
+Accuracy: 0.5705+-0.025
+Validation rate: 0.00233+-0.00423 @ FAR=0.00100
+fpr and tpr: 0.996 0.997
+Area Under Curve (AUC): 0.572
+Equal Error Rate (EER): 0.442
