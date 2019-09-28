@@ -285,7 +285,8 @@ def mobilenet_v2_arg_scope(is_training=True,
     An `arg_scope` to use for the mobilenet v2 model.
   """
   batch_norm_params = {
-      'is_training': is_training,
+      'is_training': False,
+      'trainable': False,
       'center': True,
       'scale': True,
       'fused': True,
