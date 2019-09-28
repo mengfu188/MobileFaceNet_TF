@@ -22,6 +22,39 @@ import time
 import sys
 import re
 import os
+from tqdm import tqdm
+
+
+def load_interpreter(lite_file):
+    interpreter = tf.lite.Interpreter(model_path=lite_file)
+    interpreter.allocate_tensors()
+
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+
+    print(input_details)
+    print(output_details)
+
+    return interpreter
+
+
+def invoke(interpreter, data):
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+    data = preprocess_data(data)
+    interpreter.set_tensor(input_details[0]['index'], data)
+    interpreter.invoke()
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    return output_data
+
+
+def preprocess_data(data):
+    if len(data.shape) == 3:
+        data = np.expand_dims(data, 0)
+    data = (data - 127.5) / 128
+    data = data.astype(np.float32)
+    data = data.copy()
+    return data
 
 
 def load_model(model):
@@ -69,71 +102,68 @@ def get_model_filenames(model_dir):
                 ckpt_file = step_str.groups()[0]
     return meta_file, ckpt_file
 
+
 def main(args):
-    with tf.Graph().as_default():
-        with tf.Session() as sess:
-            # prepare validate datasets
-            ver_list = []
-            ver_name_list = []
-            for db in args.eval_datasets:
-                print('begin db %s convert.' % db)
-                data_set = load_data(db, args.image_size, args)
-                ver_list.append(data_set)
-                ver_name_list.append(db)
+    interpreter = load_interpreter(args.model)
 
-            # Load the model
-            load_model(args.model)
+    # prepare validate datasets
+    ver_list = []
+    ver_name_list = []
+    for db in args.eval_datasets:
+        print('begin db %s convert.' % db)
+        data_set = load_data(db, args.image_size, args)
+        ver_list.append(data_set)
+        ver_name_list.append(db)
 
-            # Get input and output tensors, ignore phase_train_placeholder for it have default value.
-            inputs_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
-            embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
+    for db_index in range(len(ver_list)):
+        # Run forward pass to calculate embeddings
+        print('\nRunnning forward pass on {} images'.format(ver_name_list[db_index]))
+        start_time = time.time()
+        data_sets, issame_list = ver_list[db_index]
+        nrof_batches = data_sets.shape[0] // args.test_batch_size
+        emb_array = np.zeros((data_sets.shape[0], args.embedding_size))
 
-            # image_size = images_placeholder.get_shape()[1]  # For some reason this doesn't work for frozen graphs
-            embedding_size = embeddings.get_shape()[1]
+        # for index in range(nrof_batches):
+        #     start_index = index * args.test_batch_size
+        #     end_index = min((index + 1) * args.test_batch_size, data_sets.shape[0])
+        #
+        #     # feed_dict = {inputs_placeholder: data_sets[start_index:end_index, ...]}
+        #     emb_array[start_index:end_index, :] = sess.run(embeddings, feed_dict=feed_dict)
 
-            for db_index in range(len(ver_list)):
-                # Run forward pass to calculate embeddings
-                print('\nRunnning forward pass on {} images'.format(ver_name_list[db_index]))
-                start_time = time.time()
-                data_sets, issame_list = ver_list[db_index]
-                nrof_batches = data_sets.shape[0] // args.test_batch_size
-                emb_array = np.zeros((data_sets.shape[0], embedding_size))
+        for i in tqdm(range(data_sets.shape[0])):
+            emb_array[i, :] = invoke(interpreter, data_sets[i])
 
-                for index in range(nrof_batches):
-                    start_index = index * args.test_batch_size
-                    end_index = min((index + 1) * args.test_batch_size, data_sets.shape[0])
+        tpr, fpr, accuracy, val, val_std, far = evaluate(emb_array, issame_list, nrof_folds=args.eval_nrof_folds)
+        duration = time.time() - start_time
+        print("total time %.3fs to evaluate %d images of %s" % (duration, data_sets.shape[0], ver_name_list[db_index]))
+        print('Accuracy: %1.4f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
+        print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
+        print('fpr and tpr: %1.3f %1.3f' % (np.mean(fpr, 0), np.mean(tpr, 0)))
 
-                    feed_dict = {inputs_placeholder: data_sets[start_index:end_index, ...]}
-                    emb_array[start_index:end_index, :] = sess.run(embeddings, feed_dict=feed_dict)
+        auc = metrics.auc(fpr, tpr)
+        print('Area Under Curve (AUC): %1.3f' % auc)
+        eer = brentq(lambda x: 1. - x - interpolate.interp1d(fpr, tpr)(x), 0., 1.)
+        print('Equal Error Rate (EER): %1.3f' % eer)
 
-                tpr, fpr, accuracy, val, val_std, far = evaluate(emb_array, issame_list, nrof_folds=args.eval_nrof_folds)
-                duration = time.time() - start_time
-                print("total time %.3fs to evaluate %d images of %s" % (duration, data_sets.shape[0], ver_name_list[db_index]))
-                print('Accuracy: %1.4f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
-                print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
-                print('fpr and tpr: %1.3f %1.3f' % (np.mean(fpr, 0), np.mean(tpr, 0)))
-
-                auc = metrics.auc(fpr, tpr)
-                print('Area Under Curve (AUC): %1.3f' % auc)
-                eer = brentq(lambda x: 1. - x - interpolate.interp1d(fpr, tpr)(x), 0., 1.)
-                print('Equal Error Rate (EER): %1.3f' % eer)
 
 def parse_arguments(argv):
     '''test parameters'''
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str,
                         help='Could be either a directory containing the meta_file and ckpt_file or a model protobuf (.pb) file',
-                        default='./output/ckpt')
+                        default='arch/pretrained_model/FaceMobileNet_Float32.tflite')
     parser.add_argument('--image_size', default=[112, 112], help='the image size')
     parser.add_argument('--test_batch_size', type=int,
                         help='Number of images to process in a batch in the test set.', default=100)
-    parser.add_argument('--eval_datasets', default=['lfw', 'cfp_ff', 'cfp_fp', 'agedb_30'], help='evluation datasets')
+    parser.add_argument('--eval_datasets', default=['lfw', ], help='evluation datasets')
     # parser.add_argument('--eval_datasets', default=['lfw'], help='evluation datasets')
     parser.add_argument('--eval_db_path', default='./datasets/faces_ms1m_112x112', help='evluate datasets base path')
     parser.add_argument('--eval_nrof_folds', type=int,
                         help='Number of folds to use for cross validation. Mainly used for testing.', default=10)
+    parser.add_argument('--embedding_size', default=192)
 
     return parser.parse_args(argv)
+
 
 if __name__ == '__main__':
     main(parse_arguments(sys.argv[1:]))

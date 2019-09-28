@@ -268,7 +268,7 @@ def _reduced_kernel_size_for_small_input(input_tensor, kernel_size):
 def prelu(input, name=''):
     alphas = tf.get_variable(name=name + 'prelu_alphas',initializer=tf.constant(0.25,dtype=tf.float32,shape=[input.get_shape()[-1]]))
     pos = tf.nn.relu(input)
-    neg = alphas * (input - abs(input)) * 0.5
+    neg = alphas * (input - tf.abs(input)) * 0.5
     return pos + neg
 
 def mobilenet_v2_arg_scope(is_training=True,

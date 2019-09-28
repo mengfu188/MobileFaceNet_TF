@@ -1,0 +1,114 @@
+C:\ProgramData\Anaconda3\python.exe C:/Users/mengf/workspace/MobileFaceNet_TF/test_nets.py --model arch/pretrained_model/MobileFaceNet_9925_9680.pb --eval_db_path D:\datasets\faces_webface_112x112
+2019-06-18 21:29:28.400775: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX AVX2
+2019-06-18 21:29:29.166427: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties:
+name: GeForce MX150 major: 6 minor: 1 memoryClockRate(GHz): 1.341
+pciBusID: 0000:01:00.0
+totalMemory: 2.00GiB freeMemory: 1.62GiB
+2019-06-18 21:29:29.166925: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-06-18 21:29:30.518737: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-18 21:29:30.518915: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0
+2019-06-18 21:29:30.519154: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N
+2019-06-18 21:29:30.520525: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 1365 MB memory) -> physical GPU (device: 0, name: GeForce MX150, pci bus id: 0000:01:00.0, compute capability: 6.1)
+begin db lfw convert.
+loading bin 1000
+loading bin 2000
+loading bin 3000
+loading bin 4000
+loading bin 5000
+loading bin 6000
+loading bin 7000
+loading bin 8000
+loading bin 9000
+loading bin 10000
+loading bin 11000
+loading bin 12000
+(12000, 112, 112, 3)
+begin db cfp_ff convert.
+loading bin 1000
+loading bin 2000
+loading bin 3000
+loading bin 4000
+loading bin 5000
+loading bin 6000
+loading bin 7000
+loading bin 8000
+loading bin 9000
+loading bin 10000
+loading bin 11000
+loading bin 12000
+loading bin 13000
+loading bin 14000
+(14000, 112, 112, 3)
+begin db cfp_fp convert.
+loading bin 1000
+loading bin 2000
+loading bin 3000
+loading bin 4000
+loading bin 5000
+loading bin 6000
+loading bin 7000
+loading bin 8000
+loading bin 9000
+loading bin 10000
+loading bin 11000
+loading bin 12000
+loading bin 13000
+loading bin 14000
+(14000, 112, 112, 3)
+begin db agedb_30 convert.
+loading bin 1000
+loading bin 2000
+loading bin 3000
+loading bin 4000
+loading bin 5000
+loading bin 6000
+loading bin 7000
+loading bin 8000
+loading bin 9000
+loading bin 10000
+loading bin 11000
+loading bin 12000
+(12000, 112, 112, 3)
+Model filename: arch/pretrained_model/MobileFaceNet_9925_9680.pb
+WARNING:tensorflow:From C:/Users/mengf/workspace/MobileFaceNet_TF/test_nets.py:33: FastGFile.__init__ (from tensorflow.python.platform.gfile) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.gfile.GFile.
+
+Runnning forward pass on lfw images
+2019-06-18 21:30:29.903059: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library cublas64_100.dll locally
+thresholds max: 1.24 <=> min: 1.23
+total time 128.801s to evaluate 12000 images of lfw
+Accuracy: 0.9920+-0.006
+Validation rate: 0.97233+-0.01221 @ FAR=0.00100
+fpr and tpr: 0.525 0.856
+Area Under Curve (AUC): 0.999
+Equal Error Rate (EER): 0.008
+
+Runnning forward pass on cfp_ff images
+thresholds max: 1.24 <=> min: 1.17
+total time 142.596s to evaluate 14000 images of cfp_ff
+Accuracy: 0.9890+-0.007
+Validation rate: 0.95857+-0.02350 @ FAR=0.00086
+fpr and tpr: 0.529 0.856
+Area Under Curve (AUC): 0.999
+Equal Error Rate (EER): 0.012
+
+Runnning forward pass on cfp_fp images
+thresholds max: 1.57 <=> min: 1.17
+total time 140.823s to evaluate 14000 images of cfp_fp
+Accuracy: 0.8616+-0.023
+Validation rate: 0.44800+-0.03875 @ FAR=0.00114
+fpr and tpr: 0.524 0.697
+Area Under Curve (AUC): 0.927
+Equal Error Rate (EER): 0.144
+
+Runnning forward pass on agedb_30 images
+thresholds max: 1.57 <=> min: 1.17
+total time 121.683s to evaluate 12000 images of agedb_30
+Accuracy: 0.9165+-0.017
+Validation rate: 0.54400+-0.04887 @ FAR=0.00133
+fpr and tpr: 0.540 0.744
+Area Under Curve (AUC): 0.974
+Equal Error Rate (EER): 0.082
+
+Process finished with exit code 0
