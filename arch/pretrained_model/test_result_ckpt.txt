@@ -1,0 +1,127 @@
+# arch/pretrained_model/MobileFaceNet_TF.ckpt
+
+WARNING: Logging before flag parsing goes to stderr.
+W0929 15:20:09.910916 139786500151104 deprecation_wrapper.py:119] From /home/cmf/w_public/MobileFaceNet_TF/test_nets.py:74: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+2019-09-29 15:20:09.911164: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+2019-09-29 15:20:09.937476: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:09.937982: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.6575
+pciBusID: 0000:01:00.0
+2019-09-29 15:20:09.938012: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-29 15:20:09.938033: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-29 15:20:09.938050: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-29 15:20:09.938066: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-29 15:20:09.938082: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-29 15:20:09.938809: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-29 15:20:09.941252: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-29 15:20:09.941328: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:09.941833: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:09.942329: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-29 15:20:09.942598: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-09-29 15:20:09.966519: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3600000000 Hz
+2019-09-29 15:20:09.967052: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55941b1d1e20 executing computations on platform Host. Devices:
+2019-09-29 15:20:09.967067: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-29 15:20:09.967212: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:09.967694: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.6575
+pciBusID: 0000:01:00.0
+2019-09-29 15:20:09.967716: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-29 15:20:09.967732: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-29 15:20:09.967742: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-29 15:20:09.967751: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-29 15:20:09.967760: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-29 15:20:09.967778: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-29 15:20:09.967790: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-29 15:20:09.967827: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:09.968295: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:09.968763: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-29 15:20:13.391947: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-29 15:20:13.391981: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0
+2019-09-29 15:20:13.391986: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N
+2019-09-29 15:20:13.392198: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:13.392893: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:13.393459: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-09-29 15:20:13.394007: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 9187 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:01:00.0, compute capability: 6.1)
+2019-09-29 15:20:13.395266: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55941c2ca820 executing computations on platform CUDA. Devices:
+2019-09-29 15:20:13.395288: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GeForce GTX 1080 Ti, Compute Capability 6.1
+begin db lfw convert.
+loading bin 1000
+loading bin 2000
+loading bin 3000
+loading bin 4000
+loading bin 5000
+loading bin 6000
+loading bin 7000
+loading bin 8000
+loading bin 9000
+loading bin 10000
+loading bin 11000
+loading bin 12000
+(12000, 112, 112, 3)
+begin db cfp_ff convert.
+loading bin 1000
+loading bin 2000
+loading bin 3000
+loading bin 4000
+loading bin 5000
+loading bin 6000
+loading bin 7000
+loading bin 8000
+loading bin 9000
+loading bin 10000
+loading bin 11000
+loading bin 12000
+loading bin 13000
+loading bin 14000
+(14000, 112, 112, 3)
+Model directory: arch/pretrained_model
+W0929 15:20:23.612078 139786500151104 deprecation_wrapper.py:119] From /home/cmf/w_public/MobileFaceNet_TF/test_nets.py:44: The name tf.train.import_meta_graph is deprecated. Please use tf.compat.v1.train.import_meta_graph instead.
+
+Metagraph file: MobileFaceNet_TF.ckpt.meta
+Checkpoint file: MobileFaceNet_TF.ckpt
+W0929 15:20:26.034904 139786500151104 deprecation_wrapper.py:119] From /home/cmf/w_public/MobileFaceNet_TF/test_nets.py:45: The name tf.get_default_session is deprecated. Please use tf.compat.v1.get_default_session instead.
+
+W0929 15:20:26.035021 139786500151104 deprecation.py:323] From /home/cmf/anaconda3/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+W0929 15:20:31.269982 139786500151104 deprecation_wrapper.py:119] From /home/cmf/w_public/MobileFaceNet_TF/test_nets.py:88: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
+
+
+Runnning forward pass on lfw images
+thresholds max: 1.25 <=> min: 1.19
+total time 13.044s to evaluate 12000 images of lfw
+Accuracy: 0.9935+-0.004
+Validation rate: 0.98367+-0.00924 @ FAR=0.00133
+fpr and tpr: 0.503 0.872
+Area Under Curve (AUC): 0.999
+Equal Error Rate (EER): 0.007
+
+Runnning forward pass on cfp_ff images
+thresholds max: 1.25 <=> min: 1.19
+total time 12.744s to evaluate 14000 images of cfp_ff
+Accuracy: 0.9931+-0.004
+Validation rate: 0.98200+-0.00756 @ FAR=0.00086
+fpr and tpr: 0.503 0.865
+Area Under Curve (AUC): 1.000
+Equal Error Rate (EER): 0.008
+
+Runnning forward pass on cfp_fp images
+thresholds max: 1.55 <=> min: 1.52
+total time 13.676s to evaluate 14000 images of cfp_fp
+Accuracy: 0.9184+-0.022
+Validation rate: 0.50371+-0.03371 @ FAR=0.00114
+fpr and tpr: 0.502 0.730
+Area Under Curve (AUC): 0.971
+Equal Error Rate (EER): 0.083
+
+Runnning forward pass on agedb_30 images
+thresholds max: 1.55 <=> min: 1.34
+total time 11.227s to evaluate 12000 images of agedb_30
+Accuracy: 0.9357+-0.017
+Validation rate: 0.59233+-0.04844 @ FAR=0.00100
+fpr and tpr: 0.528 0.759
+Area Under Curve (AUC): 0.983
+Equal Error Rate (EER): 0.063
+
+Process finished with exit code 0
