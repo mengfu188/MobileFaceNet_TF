@@ -41,20 +41,43 @@ def load_interpreter(lite_file):
 def invoke(interpreter, data):
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
-    data = preprocess_data(data)
+    data = preprocess_data_v2(data)
     interpreter.set_tensor(input_details[0]['index'], data)
     interpreter.invoke()
     output_data = interpreter.get_tensor(output_details[0]['index'])
     return output_data
 
 
-def preprocess_data(data):
-    if len(data.shape) == 3:
-        data = np.expand_dims(data, 0)
-    data = (data - 127.5) / 128
-    data = data.astype(np.float32)
-    data = data.copy()
-    return data
+def preprocess_data_v2(x):
+    if len(x.shape) == 3:
+        x = np.expand_dims(x, 0)
+    # x = (x - 127.5) / 128
+    x = x.astype(np.float32)
+    return x
+
+
+def preprocess_data_v1(x):
+    """
+    Whiten image (with mean and std).
+
+    Parameters
+    ----------
+    x: numpy array
+        RGB image.
+
+    Returns
+    -------
+    numpy array
+        Whitened image.
+    """
+    if len(x.shape) == 3:
+        x = np.expand_dims(x, 0)
+    mean = np.mean(x)
+    std = np.std(x)
+    std_adj = np.maximum(std, 1.0 / np.sqrt(x.size))
+    y = np.multiply(np.subtract(x, mean), 1 / std_adj)
+    y = y.astype(np.float32)
+    return y
 
 
 def load_model(model):
@@ -160,7 +183,7 @@ def parse_arguments(argv):
     parser.add_argument('--eval_db_path', default='./datasets/faces_ms1m_112x112', help='evluate datasets base path')
     parser.add_argument('--eval_nrof_folds', type=int,
                         help='Number of folds to use for cross validation. Mainly used for testing.', default=10)
-    parser.add_argument('--embedding_size', default=192)
+    parser.add_argument('--embedding_size', default=192, type=int)
 
     return parser.parse_args(argv)
 

@@ -18,7 +18,7 @@ def parse_args():
                         help='path to the binary image file')
     parser.add_argument('--idx_path', default='./datasets/faces_ms1m_112x112/train.idx', type=str,
                         help='path to the image index path')
-    parser.add_argument('--tfrecords_file_path', default='../datasets/tfrecords', type=str,
+    parser.add_argument('--tfrecords_file_path', default='../datasets/faces_ms1m_112x112/tfrecords', type=str,
                         help='path to the output of tfrecords file path')
     args = parser.parse_args()
     return args
@@ -116,6 +116,10 @@ def load_data(db_name, image_size, args):
         # img = cv2.imdecode(np.fromstring(_bin, np.uint8), -1)
         # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         #img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        # mean = np.mean(img)
+        # std = np.std(img)
+        # std_adj = np.maximum(std, 1.0 / np.sqrt(img.size))
+        # img = np.multiply(np.subtract(img, mean), 1 / std_adj)
         img = img - 127.5
         img = img * 0.0078125
         datasets[i, ...] = img
