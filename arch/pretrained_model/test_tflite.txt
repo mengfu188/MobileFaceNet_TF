@@ -1,3 +1,7 @@
+## test arch/pretrained_model/FaceMobileNet_Float32.tflite
+
+(img - 127.5) / 128
+
 [{'name': 'img_inputs', 'index': 369, 'shape': array([  1, 112, 112,   3], dtype=int32), 'dtype': <class 'numpy.float32'>, 'quantization': (0.0, 0)}]
 [{'name': 'embeddings', 'index': 368, 'shape': array([  1, 192], dtype=int32), 'dtype': <class 'numpy.float32'>, 'quantization': (0.0, 0)}]
 begin db lfw convert.
@@ -16,11 +20,62 @@ loading bin 11000
 (12000, 112, 112, 3)
 
 Runnning forward pass on lfw images
-100%|██████████| 12000/12000 [17:18<00:00, 11.56it/s]
-thresholds max: 0.01 <=> min: 0.01
-total time 1040.858s to evaluate 12000 images of lfw
-Accuracy: 0.5705+-0.025
-Validation rate: 0.00233+-0.00423 @ FAR=0.00100
-fpr and tpr: 0.996 0.997
-Area Under Curve (AUC): 0.572
-Equal Error Rate (EER): 0.442
+100%|██████████| 12000/12000 [17:25<00:00, 11.48it/s]
+thresholds max: 1.09 <=> min: 1.04
+total time 1047.801s to evaluate 12000 images of lfw
+Accuracy: 0.9898+-0.006
+Validation rate: 0.96367+-0.01354 @ FAR=0.00100
+fpr and tpr: 0.572 0.884
+Area Under Curve (AUC): 0.999
+Equal Error Rate (EER): 0.010
+
+## test arch/pretrained_model/FaceMobileNet_Float32.tflite
+
+process with
+
+mean = np.mean(x)
+std = np.std(x)
+std_adj = np.maximum(std, 1.0 / np.sqrt(x.size))
+y = np.multiply(np.subtract(x, mean), 1 / std_adj)
+
+Runnning forward pass on lfw images
+100%|██████████| 12000/12000 [17:28<00:00, 11.45it/s]
+thresholds max: 1.09 <=> min: 1.06
+total time 1050.508s to evaluate 12000 images of lfw
+Accuracy: 0.9730+-0.007
+Validation rate: 0.80800+-0.02634 @ FAR=0.00100
+fpr and tpr: 0.579 0.849
+Area Under Curve (AUC): 0.996
+Equal Error Rate (EER): 0.027
+
+## test arch/pretrained_model/MobileFaceNet_iter_610000.tflite
+
+process with
+
+mean = np.mean(x)
+std = np.std(x)
+std_adj = np.maximum(std, 1.0 / np.sqrt(x.size))
+y = np.multiply(np.subtract(x, mean), 1 / std_adj)
+
+Runnning forward pass on lfw images
+100%|██████████| 12000/12000 [03:28<00:00, 57.60it/s]
+thresholds max: 1.04 <=> min: 1.04
+total time 210.585s to evaluate 12000 images of lfw
+Accuracy: 0.9833+-0.008
+Validation rate: 0.85867+-0.03563 @ FAR=0.00100
+fpr and tpr: 0.557 0.868
+Area Under Curve (AUC): 0.998
+Equal Error Rate (EER): 0.018
+
+## test arch/pretrained_model/MobileFaceNet_iter_610000.tflite
+
+# ~(img - 127.5) / 128~
+
+100%|██████████| 12000/12000 [03:28<00:00, 57.59it/s]
+thresholds max: 1.08 <=> min: 1.08
+total time 210.717s to evaluate 12000 images of lfw
+Accuracy: 0.9915+-0.005
+Validation rate: 0.96967+-0.01810 @ FAR=0.00067
+fpr and tpr: 0.535 0.892
+Area Under Curve (AUC): 1.000
+Equal Error Rate (EER): 0.009
