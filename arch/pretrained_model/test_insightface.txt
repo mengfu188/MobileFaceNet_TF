@@ -1,0 +1,95 @@
+# model-y1-test2
+# mobilfacenet v2
+
+lr-batch-epoch: 0.0001 5543 24
+testing verification..
+(12000, 128)
+infer time 5.289435
+[lfw][186000]XNorm: 11.158178
+[lfw][186000]Accuracy-Flip: 0.99467+-0.00482
+testing verification..
+(14000, 128)
+infer time 6.405615
+[cfp_fp][186000]XNorm: 9.285345
+[cfp_fp][186000]Accuracy-Flip: 0.88829+-0.02047
+testing verification..
+(12000, 128)
+infer time 5.458413
+[agedb_30][186000]XNorm: 11.100457
+[agedb_30][186000]Accuracy-Flip: 0.95900+-0.01093
+[186000]Accuracy-Highest: 0.95917
+INFO:root:Epoch[24] Batch [5560]	Speed: 272.30 samples/sec	acc=0.538086
+
+# model-r34-amf
+
+lr-batch-epoch: 0.0001 241 18
+testing verification..
+(12000, 512)
+infer time 9.981839
+[lfw][134000]XNorm: 22.243421
+[lfw][134000]Accuracy-Flip: 0.99700+-0.00287
+testing verification..
+(14000, 512)
+infer time 11.645536
+[cfp_ff][134000]XNorm: 21.673050
+[cfp_ff][134000]Accuracy-Flip: 0.99757+-0.00231
+testing verification..
+(14000, 512)
+infer time 11.593647
+[cfp_fp][134000]XNorm: 19.010883
+[cfp_fp][134000]Accuracy-Flip: 0.92200+-0.01276
+testing verification..
+(12000, 512)
+infer time 10.460021
+[agedb_30][134000]XNorm: 22.646831
+[agedb_30][134000]Accuracy-Flip: 0.97633+-0.00809
+[134000]Accuracy-Highest: 0.97700
+INFO:root:Epoch[18] Batch [260]	Speed: 138.95 samples/sec	acc=0.786719
+
+# model-r50-am-lfw
+
+[112000][MARGIN]0.805804,0.425627
+lr-batch-epoch: 0.0001 6733 14
+testing verification..
+(14000, 512)
+infer time 17.271577
+[cfp_ff][112000]XNorm: 21.469734
+[cfp_ff][112000]Accuracy-Flip: 0.99829+-0.00229
+testing verification..
+(14000, 512)
+infer time 18.281102
+[cfp_fp][112000]XNorm: 19.813611
+[cfp_fp][112000]Accuracy-Flip: 0.92657+-0.01354
+testing verification..
+(12000, 512)
+infer time 16.304625
+[agedb_30][112000]XNorm: 22.723814
+[agedb_30][112000]Accuracy-Flip: 0.97817+-0.00598
+testing verification..
+(12000, 512)
+infer time 19.865969
+[lfw][112000]XNorm: 22.262860
+[lfw][112000]Accuracy-Flip: 0.99767+-0.00271
+[112000]Accuracy-Highest: 0.99817
+INFO:root:Epoch[14] Batch [6740]	Speed: 96.46 samples/sec	acc=0.823535
+
+# model-r100-ii
+
+lr-batch-epoch: 0.0001 8791 14
+testing verification..
+(12000, 512)
+infer time 21.69233
+[lfw][168000]XNorm: 22.172497
+[lfw][168000]Accuracy-Flip: 0.99783+-0.00269
+testing verification..
+(14000, 512)
+infer time 24.988244
+[cfp_fp][168000]XNorm: 21.383092
+[cfp_fp][168000]Accuracy-Flip: 0.98271+-0.00569
+testing verification..
+(12000, 512)
+infer time 21.44195
+[agedb_30][168000]XNorm: 22.695239
+[agedb_30][168000]Accuracy-Flip: 0.98233+-0.00716
+[168000]Accuracy-Highest: 0.98283
+INFO:root:Epoch[14] Batch [8800]	Speed: 96.85 samples/sec	acc=0.778320
